@@ -1,0 +1,9 @@
+[package]
+name = "elephantry-extras"
+version = "0.1.0"
+authors = ["Sanpi <sanpi@homecomputing.fr>"]
+edition = "2018"
+description = "A collection of additional components for elephantry."
+license = "MIT"
+
+[dependencies]
