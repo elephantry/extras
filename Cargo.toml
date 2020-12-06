@@ -15,6 +15,11 @@ optional = true
 version = "1.5"
 optional = true
 
+[dependencies.yew]
+version = "0.17"
+optional = true
+
 [features]
 default = []
 tera-pager = ["tera", "serde"]
+yem-pager = ["yew"]
