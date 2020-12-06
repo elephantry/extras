@@ -22,4 +22,4 @@ optional = true
 [features]
 default = []
 tera-pager = ["tera", "serde"]
-yem-pager = ["yew"]
+yew-pager = ["yew"]
