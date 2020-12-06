@@ -6,4 +6,15 @@ edition = "2018"
 description = "A collection of additional components for elephantry."
 license = "MIT"
 
-[dependencies]
+[dependencies.serde]
+version = "1.0"
+features = ["derive"]
+optional = true
+
+[dependencies.tera]
+version = "1.5"
+optional = true
+
+[features]
+default = []
+tera-pager = ["tera", "serde"]
