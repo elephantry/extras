@@ -3,7 +3,7 @@ pub fn pager(pager: &crate::Pager, config: &crate::pager::Config) -> String {
 
     let last_page = (pager.count as f32 / pager.max_per_page as f32).ceil() as usize;
 
-    if last_page <= 2 {
+    if last_page < 2 {
         return html;
     }
 
