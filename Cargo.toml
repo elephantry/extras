@@ -16,7 +16,7 @@ version = "1.5"
 optional = true
 
 [dependencies.yew]
-version = "0.17"
+version = "0.18"
 optional = true
 
 [features]
