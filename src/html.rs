@@ -45,7 +45,10 @@ pub fn pager(pager: &crate::Pager, config: &crate::pager::Config) -> String {
 
     for i in start..end + 1 {
         if i == pager.page {
-            html.push_str(&format!(r#"<li class="page-item active"><a class="page-link" href="\#">{}</a></li>"#, pager.page));
+            html.push_str(&format!(
+                r#"<li class="page-item active"><a class="page-link" href="\#">{}</a></li>"#,
+                pager.page
+            ));
         } else {
             let url = url(i, pager, config);
             html.push_str(&format!(
