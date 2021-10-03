@@ -25,7 +25,7 @@ pub fn pager(pager: &crate::Pager, config: &crate::pager::Config) -> String {
         ));
     } else {
         html.push_str(
-            &r#"<li class="page-item disabled"><a class="page-link" href="\#">«</a></li>"#,
+            r#"<li class="page-item disabled"><a class="page-link" href="\#">«</a></li>"#,
         );
     }
 
