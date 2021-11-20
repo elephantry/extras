@@ -1,3 +1,4 @@
+#![warn(warnings)]
 #![cfg_attr(feature = "yew", recursion_limit = "1024")]
 
 pub mod html;
