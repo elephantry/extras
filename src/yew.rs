@@ -2,7 +2,7 @@ pub enum Message {
     Click((yew::MouseEvent, usize)),
 }
 
-#[derive(Clone, yew::Properties)]
+#[derive(Clone, PartialEq, yew::Properties)]
 pub struct Properties {
     pub value: crate::Pager,
     #[prop_or_default]
@@ -19,7 +19,6 @@ pub struct Properties {
 
 pub struct Pager {
     pager: crate::Pager,
-    link: yew::ComponentLink<Self>,
     config: crate::pager::Config,
     onclick: Option<yew::Callback<usize>>,
 }
@@ -47,7 +46,9 @@ impl yew::Component for Pager {
     type Message = Message;
     type Properties = Properties;
 
-    fn create(props: Self::Properties, link: yew::ComponentLink<Self>) -> Self {
+    fn create(ctx: &yew::Context<Self>) -> Self {
+        let props = ctx.props().clone();
+
         let config = crate::pager::Config {
             base_url: props.base_url,
             page_param: if props.page_param.is_empty() {
@@ -69,13 +70,12 @@ impl yew::Component for Pager {
 
         Self {
             config,
-            link,
             pager: props.value,
             onclick: props.onclick,
         }
     }
 
-    fn update(&mut self, msg: Self::Message) -> yew::ShouldRender {
+    fn update(&mut self, _: &yew::Context<Self>, msg: Self::Message) -> bool {
         let Self::Message::Click((event, page)) = msg;
         if let Some(onclick) = &self.onclick {
             event.prevent_default();
@@ -85,7 +85,7 @@ impl yew::Component for Pager {
         false
     }
 
-    fn view(&self) -> yew::Html {
+    fn view(&self, ctx: &yew::Context<Self>) -> yew::Html {
         let last_page = (self.pager.count as f32 / self.pager.max_per_page as f32).ceil() as usize;
 
         if last_page <= 1 {
@@ -111,8 +111,8 @@ impl yew::Component for Pager {
                         <li class="page-item">
                             <a
                                 class="page-link"
-                                href=self.url(page, self.pager.max_per_page)
-                                onclick=self.link.callback(move |e| Self::Message::Click((e, page)))
+                                href={ self.url(page, self.pager.max_per_page) }
+                                onclick={ ctx.link().callback(move |e| Self::Message::Click((e, page))) }
                             >{ "«" }</a>
                         </li>
                     }
@@ -131,8 +131,8 @@ impl yew::Component for Pager {
                             <li class="page-item">
                                 <a
                                     class="page-link"
-                                    href=self.url(1, self.pager.max_per_page)
-                                    onclick=self.link.callback(|e| Self::Message::Click((e, 1)))
+                                    href={ self.url(1, self.pager.max_per_page) }
+                                    onclick={ ctx.link().callback(|e| Self::Message::Click((e, 1))) }
                                 >{ "1" }</a>
                             </li>
                             <li class="page-item disabled">
@@ -154,8 +154,8 @@ impl yew::Component for Pager {
                             <li class="page-item">
                                 <a
                                     class="page-link"
-                                    href=self.url(i, self.pager.max_per_page)
-                                    onclick=self.link.callback(move |e| Self::Message::Click((e, i)))
+                                    href={ self.url(i, self.pager.max_per_page) }
+                                    onclick={ ctx.link().callback(move |e| Self::Message::Click((e, i))) }
                                 >{ i }</a></li>
                         }
                     })
@@ -170,8 +170,8 @@ impl yew::Component for Pager {
                             <li class="page-item">
                                 <a
                                     class="page-link"
-                                    href=self.url(last_page, self.pager.max_per_page)
-                                    onclick=self.link.callback(move |e| Self::Message::Click((e, last_page)))
+                                    href={ self.url(last_page, self.pager.max_per_page) }
+                                    onclick={ ctx.link().callback(move |e| Self::Message::Click((e, last_page))) }
                                 >{ last_page }</a>
                             </li>
                         </>
@@ -188,8 +188,8 @@ impl yew::Component for Pager {
                         <li class="page-item">
                             <a
                                 class="page-link"
-                                href=self.url(page, self.pager.max_per_page)
-                                onclick=self.link.callback(move |e| Self::Message::Click((e, page)))
+                                href={ self.url(page, self.pager.max_per_page) }
+                                onclick={ ctx.link().callback(move |e| Self::Message::Click((e, page))) }
                             >{ "»" }</a>
                         </li>
                     }
@@ -205,8 +205,8 @@ impl yew::Component for Pager {
         }
     }
 
-    fn change(&mut self, props: Self::Properties) -> yew::ShouldRender {
-        self.pager = props.value;
+    fn changed(&mut self, ctx: &yew::Context<Self>) -> bool {
+        self.pager = ctx.props().value.clone();
 
         true
     }
