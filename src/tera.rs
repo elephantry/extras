@@ -17,7 +17,7 @@ macro_rules! get_arg {
         match $args.get($name) {
             Some(value) => tera::from_value::<$ty>(value.clone())?,
             None => $default,
-        };
+        }
     };
 }
 
