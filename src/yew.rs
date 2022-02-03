@@ -147,7 +147,7 @@ impl yew::Component for Pager {
             {
                 for (start..end + 1).map(|i| if i == self.pager.page {
                         yew::html! {
-                            <li class="page-item active"><a class="page-link" href="#">{ self.pager.page } <span class="sr-only">{ "(current)" }</span></a></li>
+                            <li class="page-item active"><a class="page-link" href="#">{ self.pager.page }</a></li>
                         }
                     } else {
                         yew::html! {
