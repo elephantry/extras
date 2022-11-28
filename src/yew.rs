@@ -205,7 +205,7 @@ impl yew::Component for Pager {
         }
     }
 
-    fn changed(&mut self, ctx: &yew::Context<Self>) -> bool {
+    fn changed(&mut self, ctx: &yew::Context<Self>, _: &Self::Properties) -> bool {
         self.pager = ctx.props().value.clone();
 
         true
