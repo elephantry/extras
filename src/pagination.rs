@@ -13,23 +13,36 @@ pub struct Pagination {
     pub limit: usize,
 }
 
-#[cfg(feature = "serde")]
 fn default_page() -> usize {
     1
 }
 
-#[cfg(feature = "serde")]
 fn default_limit() -> usize {
     20
 }
 
 impl Pagination {
+    #[must_use]
+    pub fn new() -> Self {
+        Self {
+            page: default_page(),
+            limit: default_limit(),
+        }
+    }
+
+    #[must_use]
     pub fn to_sql(&self) -> String {
         format!(
             "offset {} fetch first {} rows only",
             (self.page - 1) * self.limit,
             self.limit,
         )
+    }
+}
+
+impl Default for Pagination {
+    fn default() -> Self {
+        Self::new()
     }
 }
 
