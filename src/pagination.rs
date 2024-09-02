@@ -38,6 +38,11 @@ impl Pagination {
             self.limit,
         )
     }
+
+    #[must_use]
+    pub fn to_query(self) -> String {
+        format!("page={}&limit={}", self.page, self.limit)
+    }
 }
 
 impl Default for Pagination {
