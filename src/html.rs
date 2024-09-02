@@ -112,7 +112,7 @@ fn url(page: usize, pager: &crate::Pager, config: &crate::pager::Config) -> Stri
     }
 
     format!(
-        "{}{}={}&{}={}",
-        base_url, config.page_param, page, config.limit_param, pager.max_per_page
+        "{base_url}{}={page}&{}={}",
+        config.page_param, config.limit_param, pager.max_per_page
     )
 }

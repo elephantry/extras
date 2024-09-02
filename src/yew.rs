@@ -36,8 +36,8 @@ impl Pager {
         }
 
         format!(
-            "{}{}={}&{}={}",
-            url, self.config.page_param, page, self.config.limit_param, limit
+            "{url}{}={page}&{}={limit}",
+            self.config.page_param, self.config.limit_param,
         )
     }
 }
