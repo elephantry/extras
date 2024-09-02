@@ -1,5 +1,7 @@
-#[derive(Clone, Copy, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+#[cfg_attr(feature = "salvo", derive(salvo::macros::Extractible))]
+#[cfg_attr(feature = "salvo", salvo(extract(default_source(from = "query"))))]
 pub struct Pagination {
     #[cfg_attr(
         feature = "serde",
