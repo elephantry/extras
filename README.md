@@ -9,7 +9,7 @@ A collection of additional components for elephantry.
 
 ## Pager
 
-A [yew](https://yew.rs/) component and [tera](https://tera.netlify.app/)
-function to easily creates an html pager:
+A [yew](https://yew.rs/) component, [askama](https://crates.io/crates/askama)
+and [tera](https://tera.netlify.app/) function to easily creates an html pager:
 
 ![](pager.png)

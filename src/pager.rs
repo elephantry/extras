@@ -6,6 +6,7 @@ pub struct Pager {
     pub max_per_page: usize,
 }
 
+#[derive(Default)]
 pub struct Config {
     pub base_url: String,
     pub page_param: String,
