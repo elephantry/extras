@@ -1,6 +1,6 @@
 [package]
 name = "elephantry-extras"
-version = "0.6.0"
+version = "0.7.0"
 authors = ["Sanpi <sanpi@homecomputing.fr>"]
 edition = "2021"
 description = "A collection of additional components for elephantry."
