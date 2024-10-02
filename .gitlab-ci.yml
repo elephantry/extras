@@ -16,6 +16,8 @@ lint:fmt:
 lint:clippy:
     stage: lint
     before_script:
+        - apt update -yqq
+        - apt install -yqq clang libpq-dev
         - rustup component add clippy
     script: cargo clippy --all-features -- --deny warnings
 
