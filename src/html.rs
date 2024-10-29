@@ -14,7 +14,7 @@ pub fn pager(pager: &crate::Pager, config: &crate::pager::Config) -> String {
     } else if pager.page >= last_page - config.ellipsis {
         (last_page - (config.ellipsis + 1), last_page)
     } else {
-        let half = (config.ellipsis - 1) / 2;
+        let half = config.ellipsis.saturating_sub(1) / 2;
         (pager.page - half, pager.page + half)
     };
 
