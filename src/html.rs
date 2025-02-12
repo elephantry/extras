@@ -3,20 +3,12 @@ use std::fmt::Write;
 pub fn pager(pager: &crate::Pager, config: &crate::pager::Config) -> String {
     let mut html = String::new();
 
-    let last_page = (pager.count as f32 / pager.max_per_page as f32).ceil() as usize;
-
-    if last_page < 2 {
+    if pager.not_needed() {
         return html;
     }
 
-    let (start, end) = if pager.page <= config.ellipsis {
-        (1, (config.ellipsis + 1).min(last_page))
-    } else if pager.page >= last_page - config.ellipsis {
-        (last_page - (config.ellipsis + 1), last_page)
-    } else {
-        let half = config.ellipsis.saturating_sub(1) / 2;
-        (pager.page - half, pager.page + half)
-    };
+    let last_page = pager.last_page();
+    let bounds = crate::pager::Bounds::new(pager, config);
 
     html.push_str(r#"<ul class="pagination">"#);
     if pager.page > 1 {
@@ -32,7 +24,7 @@ pub fn pager(pager: &crate::Pager, config: &crate::pager::Config) -> String {
         );
     }
 
-    if start > 1 {
+    if bounds.start > 1 {
         let url = url(1, pager, config);
         write!(
             html,
@@ -47,7 +39,7 @@ pub fn pager(pager: &crate::Pager, config: &crate::pager::Config) -> String {
         .ok();
     }
 
-    for i in start..end + 1 {
+    for i in bounds.start..bounds.end + 1 {
         if i == pager.page {
             write!(
                 html,
@@ -65,7 +57,7 @@ pub fn pager(pager: &crate::Pager, config: &crate::pager::Config) -> String {
         }
     }
 
-    if end < last_page {
+    if bounds.end < last_page {
         let url = url(last_page, pager, config);
         write!(
             html,

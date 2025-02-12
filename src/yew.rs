@@ -86,20 +86,12 @@ impl yew::Component for Pager {
     }
 
     fn view(&self, ctx: &yew::Context<Self>) -> yew::Html {
-        let last_page = (self.pager.count as f32 / self.pager.max_per_page as f32).ceil() as usize;
-
-        if last_page <= 1 {
-            return "".into();
+        if self.pager.not_needed() {
+            return yew::Html::default();
         }
 
-        let (start, end) = if self.pager.page <= self.config.ellipsis {
-            (1, (self.config.ellipsis + 1).min(last_page))
-        } else if self.pager.page >= last_page - self.config.ellipsis {
-            (last_page - (self.config.ellipsis + 1), last_page)
-        } else {
-            let half = (self.config.ellipsis - 1) / 2;
-            (self.pager.page - half, self.pager.page + half)
-        };
+        let last_page = self.pager.last_page();
+        let bounds = crate::pager::Bounds::new(&self.pager, &self.config);
 
         yew::html! {
             <ul class="pagination justify-content-center">
@@ -125,7 +117,7 @@ impl yew::Component for Pager {
                 }
             }
             {
-                if start > 1 {
+                if bounds.start > 1 {
                     yew::html! {
                         <>
                             <li class="page-item">
@@ -141,11 +133,11 @@ impl yew::Component for Pager {
                         </>
                     }
                 } else {
-                    "".into()
+                    yew::Html::default()
                 }
             }
             {
-                for (start..end + 1).map(|i| if i == self.pager.page {
+                for (bounds.start..bounds.end + 1).map(|i| if i == self.pager.page {
                         yew::html! {
                             <li class="page-item active"><a class="page-link" href="#">{ self.pager.page }</a></li>
                         }
@@ -161,7 +153,7 @@ impl yew::Component for Pager {
                     })
             }
             {
-                if end < last_page {
+                if bounds.end < last_page {
                     yew::html! {
                         <>
                             <li class="page-item disabled">
@@ -177,7 +169,7 @@ impl yew::Component for Pager {
                         </>
                     }
                 } else {
-                    "".into()
+                    yew::Html::default()
                 }
             }
             {
