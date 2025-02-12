@@ -2,6 +2,7 @@ image: "rust:latest"
 
 stages:
     - lint
+    - test
 
 variables:
     CARGO_HOME: $CI_PROJECT_DIR/cargo
@@ -19,7 +20,23 @@ lint:clippy:
         - apt update -yqq
         - apt install -yqq clang libpq-dev
         - rustup component add clippy
-    script: cargo clippy --all-features -- --deny warnings
+    script: cargo clippy --all-targets --all-features -- --deny warnings
+
+test:
+    parallel:
+        matrix:
+            - MODE: ['debug', 'release']
+    stage: test
+    before_script:
+        - apt update -yqq
+        - apt install -yqq clang libpq-dev
+    script: |
+        if [[ $MODE == "release" ]]
+        then
+            cargo test --workspace --all-features --release
+        else
+            cargo test --workspace --all-features
+        fi
 
 cache:
     paths:
