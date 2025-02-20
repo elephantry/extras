@@ -2,7 +2,7 @@
 name = "elephantry-extras"
 version = "0.8.0"
 authors = ["Sanpi <sanpi@homecomputing.fr>"]
-edition = "2021"
+edition = "2024"
 description = "A collection of additional components for elephantry."
 license = "MIT"
 repository = "https://github.com/elephantry/extras/"
