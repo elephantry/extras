@@ -58,8 +58,8 @@ fn parse<'de, D>(deserializer: D) -> Result<usize, D::Error>
 where
     D: serde::Deserializer<'de>,
 {
-    use serde::de::Error;
     use serde::Deserialize;
+    use serde::de::Error;
 
     let s = String::deserialize(deserializer)?;
 
