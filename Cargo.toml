@@ -16,7 +16,7 @@ version = "5.0"
 optional = true
 
 [dependencies.salvo]
-version = "0.87"
+version = "0.88"
 optional = true
 
 [dependencies.serde]
