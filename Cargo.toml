@@ -17,6 +17,7 @@ optional = true
 
 [dependencies.salvo]
 version = "0.93"
+default-features = false
 optional = true
 
 [dependencies.serde]
