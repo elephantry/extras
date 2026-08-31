@@ -39,7 +39,7 @@ pub fn pager(pager: &crate::Pager, config: &crate::pager::Config) -> String {
         .ok();
     }
 
-    for i in bounds.start..bounds.end + 1 {
+    for i in bounds.start..=bounds.end {
         if i == pager.page {
             write!(
                 html,
