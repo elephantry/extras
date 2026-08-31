@@ -16,7 +16,7 @@ version = "5.0"
 optional = true
 
 [dependencies.salvo]
-version = "0.95"
+version = "0.96"
 default-features = false
 optional = true
 
