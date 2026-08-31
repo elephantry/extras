@@ -1,5 +1,6 @@
 use std::fmt::Write;
 
+#[must_use]
 pub fn pager(pager: &crate::Pager, config: &crate::pager::Config) -> String {
     let mut html = String::new();
 
