@@ -8,9 +8,9 @@ pub struct Properties {
     #[prop_or_default]
     pub base_url: String,
     #[prop_or_default]
-    pub page_param: String,
+    pub page: String,
     #[prop_or_default]
-    pub limit_param: String,
+    pub limit: String,
     #[prop_or_default]
     pub ellipsis: usize,
     #[prop_or_default]
@@ -51,15 +51,15 @@ impl yew::Component for Pager {
 
         let config = crate::pager::Config {
             base_url: props.base_url,
-            page_param: if props.page_param.is_empty() {
+            page_param: if props.page.is_empty() {
                 "page".to_string()
             } else {
-                props.page_param
+                props.page
             },
-            limit_param: if props.limit_param.is_empty() {
+            limit_param: if props.limit.is_empty() {
                 "limit".to_string()
             } else {
-                props.limit_param
+                props.limit
             },
             ellipsis: if props.ellipsis == 0 {
                 9

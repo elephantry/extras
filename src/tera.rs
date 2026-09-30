@@ -5,23 +5,23 @@ struct Param {
     pager: crate::Pager,
     #[serde(default)]
     base_url: String,
-    #[serde(default = "default_page_param")]
-    page_param: String,
-    #[serde(default = "default_limit_param")]
-    limit_param: String,
-    #[serde(default = "default_ellipsis_param")]
+    #[serde(default = "default_page")]
+    page: String,
+    #[serde(default = "default_limit")]
+    limit: String,
+    #[serde(default = "default_ellipsis")]
     ellipsis: usize,
 }
 
-fn default_page_param() -> String {
+fn default_page() -> String {
     "page".to_string()
 }
 
-fn default_limit_param() -> String {
+fn default_limit() -> String {
     "limit".to_string()
 }
 
-fn default_ellipsis_param() -> usize {
+fn default_ellipsis() -> usize {
     9
 }
 
@@ -31,8 +31,8 @@ impl tera::Function<tera::TeraResult<String>> for Pager {
 
         let config = crate::pager::Config {
             base_url: param.base_url,
-            page_param: param.page_param,
-            limit_param: param.limit_param,
+            page_param: param.page,
+            limit_param: param.limit,
             ellipsis: param.ellipsis,
         };
 
