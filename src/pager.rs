@@ -8,7 +8,7 @@ pub struct Pager {
 
 impl Pager {
     pub(crate) fn last_page(&self) -> usize {
-        (self.count as f32 / self.max_per_page as f32).ceil() as usize
+        self.count.div_ceil(self.max_per_page)
     }
 
     pub(crate) fn not_needed(&self) -> bool {
