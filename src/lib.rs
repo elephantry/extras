@@ -1,7 +1,7 @@
 #![warn(warnings)]
 #![cfg_attr(feature = "yew", recursion_limit = "1024")]
 
-#[cfg(feature = "askama")]
+#[cfg(feature = "askama-pager")]
 pub mod askama;
 pub mod html;
 #[cfg(feature = "tera")]
